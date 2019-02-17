@@ -7,7 +7,9 @@
 Ubidots client(TOKEN);
 
 // Data variable
-float data = 0;
+//float data = 0;
+int resistor;
+int data;
 
 void setup(){
     Serial.begin(115200);
@@ -16,10 +18,13 @@ void setup(){
 }
 void loop(){
     // Read data from Serial and add it to Ubidots client
-    data = Serial.read();
-    client.add("Pulse", data);
-
-    // Send all data to Ubidots client
-    client.sendAll(true);
+    
+    if (Serial.available() > 0){
+      data = Serial.read();
+      client.add("test", data);
+      client.sendAll(true);
+      delay(1000);
+      Serial.println("received"+data);
+    }
 }
 
